@@ -1,0 +1,14 @@
+defaults: &defaults
+  google_custom_search_id: '010047191635782780161:9r9ask8xlgy'
+  admin_emails:
+    - "ganweiliang886@gmail.com"
+    - "894180545@qq.com"
+
+production:
+  <<: *defaults
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults

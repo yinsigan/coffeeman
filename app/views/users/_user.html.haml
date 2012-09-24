@@ -1,0 +1,39 @@
+%table.item-list
+  %tbody
+    %tr
+      %td.title
+        = t('.name')
+      %td.name
+        = @user.profile.name.present? ? @user.profile.name : @user.username
+        %small= "@#{@user.username}"
+    %tr
+      %td.title
+        = t('.description')
+      %td
+        - if @user.profile.description.present?
+          = simple_format @user.profile.description
+      %tr
+        %td.title
+          = t('.website')
+        %td
+          - if @user.profile.website.present?
+            = link_to @user.profile.website, @user.profile.website, :rel => "external nofollow"
+      %tr
+        %td.title
+          = t('.github')
+        %td
+          - if @user.profile.github.present?
+            = link_to @user.profile.github, @user.profile.github
+      %tr
+        %td.title
+          = t('.twitter')
+        %td
+          - if @user.profile.twitter.present?
+            = link_to @user.profile.twitter, @user.profile.twitter
+      %tr
+        %td.title
+          = t('.company')
+        %td
+          - if @user.profile.company.present?
+            = @user.profile.company
+

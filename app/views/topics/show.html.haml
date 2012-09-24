@@ -1,0 +1,57 @@
+- @page_title = "#{@topic.title} - #{t('.topics')}"
+- if user_signed_in?
+  - content_for :head do
+    = javascript_include_tag 'editor'
+    = stylesheet_link_tag 'editor'
+
+.container
+  .row
+    .span12
+      %ul.breadcrumb
+        %li
+          = link_to t('.topics'), topics_path
+          %span.divider /
+        %li.active= @topic.title
+  .row
+    #mainbar.span9
+      %section#topic.box
+        %article{:id => @topic.user.username}
+          %header
+            %table
+              %tbody
+                %tr
+                  %td
+                    %h1= @topic.title
+                    - if @topic.tags && @topic.tags.any?
+                      %span.tags
+                        - @topic.tags.each do |tag|
+                          = link_to tag.name
+                    %span.author
+                      = link_to_person @topic.user
+                    %span.time
+                      = t('created_at')
+                      = format_time @topic.created_at
+                      - if @topic.edited?
+                        = t('updated_at')
+                        = format_time @topic.edited_at
+                    - if user_signed_in? && current_user == @topic.user
+                      = link_to t('edit'), edit_topic_path(@topic)
+                  %td.avatar
+                    = link_to gravatar_for(@topic.user), @topic.user
+          = markdown @topic.content
+          %footer
+            = social_share_button_tag(@topic.title)
+      %section#replies.box.no-padding
+        %table.item-list
+          %tbody
+            = render :partial => 'replies/reply', :collection => @replies
+      = paginate @replies
+      - if user_signed_in?
+        %section#editor.box
+          %h4= t('.post_reply')
+          = form_for @reply, :url => replies_path(:topic_id => @topic), :remote => true do |f|
+            = render :partial => 'replies/form', :object => f
+
+    #sidebar.span3
+      - if user_signed_in?
+        = render :partial => 'shared/sidebar_profile'

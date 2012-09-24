@@ -1,0 +1,8 @@
+%section.profile.box
+  .clearfix
+    .avatar
+      = link_to gravatar_for(current_user), current_user
+    .info
+      = t '.signed_as'
+      %h3= current_user.username
+  %hr

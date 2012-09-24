@@ -1,0 +1,30 @@
+!!! 5
+%html
+  %head
+    %meta{charset: "utf-8"}
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+    %title= page_title
+    - if defined?(@subscribe_url)
+      %link{:rel => 'alternate', :type => 'application/rss+xml', :href => @subscribe_url}
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Trocchi'
+    = timeago_script_tag
+    = render 'layouts/shim'
+    - if content_for? :head
+      = yield :head
+    = csrf_meta_tags
+
+  %body
+    = render 'layouts/topbar'
+    .container
+      -#.alert
+        -#%button.close{"data-dismiss" => "alert"} x
+        -#%strong
+          -#= "提示:"
+        -#= "该网站用firefox或chrome等标准浏览器浏览为最佳效果"
+      - flash.each do |key, value|
+        = content_tag :div, value, class: "alert alert-#{key}"
+      = yield
+    = render 'layouts/footer'
+

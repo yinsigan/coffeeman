@@ -1,0 +1,24 @@
+%tr
+  %td.avatar
+    = link_to gravatar_for(topic.user), topic.user
+  %td.content
+    %h3
+      = link_to topic.title, topic_path(topic)
+    .info
+      - if topic.tags.to_a.any?
+        %span.tags
+          - topic.tags.each do |tag, topics|
+            = link_to tag.name, tag_path(tag)
+      %span.author
+        = link_to_person topic.user
+      %span.time
+        = t 'created_at'
+        = format_time topic.created_at
+        - if topic.replies_count > 0
+          ,
+          = link_to_person(topic.last_reply_user)
+          = t 'replied_at'
+          = format_time topic.actived_at
+  %td.reply-count.last
+    - if topic.replies_count > 0
+      = link_to topic.replies_count

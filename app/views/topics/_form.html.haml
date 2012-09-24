@@ -1,0 +1,19 @@
+-if @topic.errors.any?
+  #error_explanation
+    %h2= "The form contains #{pluralize(@topic.errors.count, "error")}"
+    %ul
+      - @topic.errors.full_messages.each do |msg|
+        %li= msg
+
+.field.full-input-wrap
+  = form.text_field :title, :placeholder => t(".title_placeholder")
+.field.full-input-wrap
+  #editor-button-bar
+  = form.text_area :content, :id => 'editor-input'
+  #editor-preview
+%br
+.field.full-input-wrap
+  = form.text_field :tag_string, :placeholder => t(".tags_placeholder")
+%br
+.actions
+  = form.submit t('submit'), :class => 'btn btn-primary'

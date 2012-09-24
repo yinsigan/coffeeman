@@ -1,0 +1,50 @@
+%header
+  %h3= t '.profile_settings'
+= form_for @profile, :url => settings_profile_path, :method => 'put', :html => {:multipart => true} do |f|
+  %fieldset
+    .control-group
+      .control-label
+        = f.label t('.avatar')
+      .controls
+        .avatar= gravatar_for(current_user, 160)
+        %p
+          = t(".modify_avatar")
+          = link_to t('.gravatar'), 'http://www.gravatar.com', :rel => 'external'
+    .control-group
+      .control-label
+        = f.label :name
+      .controls
+        = f.text_field :name, :class => 'span3'
+    .control-group
+      .control-label
+        = f.label :avatar
+      .controls
+        = f.file_field :avatar, :class => 'span3'
+    .control-group
+      .control-label
+        = f.label :github
+      .controls
+        = f.text_field :github, :class => 'span3'
+    .control-group
+      .control-label
+        = f.label :twitter
+      .controls
+        = f.text_field :twitter, :class => 'span3'
+    .control-group
+      .control-label
+        = f.label :company
+      .controls
+        = f.text_field :company, :class => 'span3'
+    .control-group
+      .control-label
+        = f.label :website
+      .controls
+        = f.text_field :website, :class => 'span3'
+    .control-group
+      .control-label
+        = f.label :description
+      .controls
+        = f.text_area :description, :rows => 5, :class => 'span6'
+    %div.well
+      = f.submit t('save'), :class => 'btn btn-large'
+
